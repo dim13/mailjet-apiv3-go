@@ -129,7 +129,7 @@ func Sort(value string, order SortOrder) RequestOptions {
 // List issues a GET to list the specified resource
 // and stores the result in the value pointed to by res.
 // Filters can be add via functional options.
-func (c *Client) List(resource string, resp interface{}, options ...RequestOptions) (count, total int, err error) {
+func (c *Client) List(resource string, resp any, options ...RequestOptions) (count, total int, err error) {
 	url := buildURL(c.apiBase, &Request{Resource: resource})
 	req, err := createRequest("GET", url, nil, nil, options...)
 	if err != nil {
@@ -145,7 +145,7 @@ func (c *Client) List(resource string, resp interface{}, options ...RequestOptio
 // and stores the result in the value pointed to by res.
 // Filters can be add via functional options.
 // Without an specified ID in MailjetRequest, it is the same as List.
-func (c *Client) Get(mr *Request, resp interface{}, options ...RequestOptions) (err error) {
+func (c *Client) Get(mr *Request, resp any, options ...RequestOptions) (err error) {
 	url := buildURL(c.apiBase, mr)
 	req, err := createRequest("GET", url, nil, nil, options...)
 	if err != nil {
@@ -161,7 +161,7 @@ func (c *Client) Get(mr *Request, resp interface{}, options ...RequestOptions) (
 // Post issues a POST to create a new resource
 // and stores the result in the value pointed to by res.
 // Filters can be add via functional options.
-func (c *Client) Post(fmr *FullRequest, resp interface{}, options ...RequestOptions) (err error) {
+func (c *Client) Post(fmr *FullRequest, resp any, options ...RequestOptions) (err error) {
 	url := buildURL(c.apiBase, fmr.Info)
 	req, err := createRequest("POST", url, fmr.Payload, nil, options...)
 	if err != nil {
@@ -234,7 +234,7 @@ func (c *Client) SendMailSMTP(info *InfoSMTP) error {
 func buildMessage(header textproto.MIMEHeader, content []byte) []byte {
 	buff := bytes.NewBuffer(nil)
 	for key, values := range header {
-		buff.WriteString(fmt.Sprintf("%s: %s\r\n", key, strings.Join(values, ", ")))
+		fmt.Fprintf(buff, "%s: %s\r\n", key, strings.Join(values, ", "))
 	}
 	buff.WriteString("\r\n")
 	buff.Write(content)

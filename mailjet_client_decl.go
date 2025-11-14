@@ -12,9 +12,9 @@ type ClientInterface interface {
 	APIKeyPrivate() string
 	Client() *http.Client
 	SetClient(client *http.Client)
-	List(resource string, resp interface{}, options ...RequestOptions) (count, total int, err error)
-	Get(mr *Request, resp interface{}, options ...RequestOptions) error
-	Post(fmr *FullRequest, resp interface{}, options ...RequestOptions) error
+	List(resource string, resp any, options ...RequestOptions) (count, total int, err error)
+	Get(mr *Request, resp any, options ...RequestOptions) error
+	Post(fmr *FullRequest, resp any, options ...RequestOptions) error
 	Put(fmr *FullRequest, onlyFields []string, options ...RequestOptions) error
 	Delete(mr *Request, options ...RequestOptions) error
 	SendMail(data *InfoSendMail, options ...RequestOptions) (*SentResult, error)

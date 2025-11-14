@@ -44,13 +44,13 @@ type DataRequest struct {
 // FullRequest is the same as a Request but with a payload.
 type FullRequest struct {
 	Info    *Request
-	Payload interface{}
+	Payload any
 }
 
 // FullDataRequest is the same as a DataRequest but with a payload.
 type FullDataRequest struct {
 	Info    *DataRequest
-	Payload interface{}
+	Payload any
 }
 
 // RequestOptions are functional options that modify the specified request.
@@ -59,7 +59,7 @@ type RequestOptions func(*http.Request)
 // RequestResult is the JSON result sent by the API.
 type RequestResult struct {
 	Count int
-	Data  interface{}
+	Data  any
 	Total int
 }
 
@@ -110,7 +110,7 @@ type InfoSendMail struct {
 	MjTemplateErrorDeliver   string            `json:"MJ-TemplateErrorDeliver,omitempty"`
 	MjEventPayLoad           string            `json:"Mj-EventPayLoad,omitempty"`
 	Headers                  map[string]string `json:",omitempty"`
-	Vars                     interface{}       `json:",omitempty"`
+	Vars                     any               `json:",omitempty"`
 	Messages                 []InfoSendMail    `json:",omitempty"`
 }
 
@@ -118,7 +118,7 @@ type InfoSendMail struct {
 type Recipient struct {
 	Email string
 	Name  string
-	Vars  interface{} `json:",omitempty"`
+	Vars  any `json:",omitempty"`
 }
 
 // Attachment bundles data on the file attached to the mail.
@@ -180,13 +180,13 @@ type InfoMessagesV31 struct {
 	TrackClicks              string                 `json:",omitempty"`
 	TrackOpens               string                 `json:",omitempty"`
 	CustomID                 string                 `json:",omitempty"`
-	Variables                map[string]interface{} `json:",omitempty"`
+	Variables                map[string]any         `json:",omitempty"`
 	EventPayload             string                 `json:",omitempty"`
 	TemplateID               int                    `json:",omitempty"`
 	TemplateLanguage         bool                   `json:",omitempty"`
 	TemplateErrorReporting   *RecipientV31          `json:",omitempty"`
 	TemplateErrorDeliver     bool                   `json:",omitempty"`
-	Headers                  map[string]interface{} `json:",omitempty"`
+	Headers                  map[string]any         `json:",omitempty"`
 }
 
 // RecipientV31 struct handle users input

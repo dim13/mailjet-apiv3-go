@@ -48,7 +48,7 @@ func TestConvertPayload(t *testing.T) {
 		Email:    "ex@mple.com",
 		TextPart: "This is text",
 	}
-	resMap := make(map[string]interface{})
+	resMap := make(map[string]any)
 	resMap["Email"] = "ex@mple.com"
 	resMap["Text-Part"] = "This is text"
 	body, err := convertPayload(test, []string{"Email", "TextPart"})

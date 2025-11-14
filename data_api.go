@@ -5,7 +5,7 @@ import "strings"
 // ListData issues a GET to list the specified data resource
 // and stores the result in the value pointed to by res.
 // Filters can be add via functional options.
-func (c *Client) ListData(resource string, resp interface{}, options ...RequestOptions) (count, total int, err error) {
+func (c *Client) ListData(resource string, resp any, options ...RequestOptions) (count, total int, err error) {
 	url := buildDataURL(c.apiBase, &DataRequest{SourceType: resource})
 	req, err := createRequest("GET", url, nil, nil, options...)
 	if err != nil {
@@ -19,7 +19,7 @@ func (c *Client) ListData(resource string, resp interface{}, options ...RequestO
 // and stores the result in the value pointed to by res.
 // Filters can be add via functional options.
 // Without an specified SourceTypeID in MailjetDataRequest, it is the same as ListData.
-func (c *Client) GetData(mdr *DataRequest, res interface{}, options ...RequestOptions) (err error) {
+func (c *Client) GetData(mdr *DataRequest, res any, options ...RequestOptions) (err error) {
 	url := buildDataURL(c.apiBase, mdr)
 	req, err := createRequest("GET", url, nil, nil, options...)
 	if err != nil {
@@ -33,7 +33,7 @@ func (c *Client) GetData(mdr *DataRequest, res interface{}, options ...RequestOp
 // PostData issues a POST to create a new data resource
 // and stores the result in the value pointed to by res.
 // Filters can be add via functional options.
-func (c *Client) PostData(fmdr *FullDataRequest, res interface{}, options ...RequestOptions) (err error) {
+func (c *Client) PostData(fmdr *FullDataRequest, res any, options ...RequestOptions) (err error) {
 	url := buildDataURL(c.apiBase, fmdr.Info)
 	req, err := createRequest("POST", url, fmdr.Payload, nil, options...)
 	if err != nil {

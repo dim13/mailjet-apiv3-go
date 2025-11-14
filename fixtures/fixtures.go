@@ -11,13 +11,13 @@ import (
 
 // Fixtures definition
 type Fixtures struct {
-	data map[interface{}][]byte
+	data map[any][]byte
 }
 
 // New loads fixtures in memory by iterating through its fixture method
 func New() *Fixtures {
 	f := new(Fixtures)
-	f.data = make(map[interface{}][]byte)
+	f.data = make(map[any][]byte)
 	fix := reflect.ValueOf(f)
 	for i := 0; i < fix.NumMethod(); i++ {
 		method := fix.Method(i)
@@ -30,7 +30,7 @@ func New() *Fixtures {
 	return f
 }
 
-func (f *Fixtures) Read(v interface{}) error {
+func (f *Fixtures) Read(v any) error {
 	for t, val := range f.data {
 		if reflect.ValueOf(v).Type().String() == reflect.ValueOf(t).Type().String() {
 			return json.Unmarshal(val, v)

@@ -38,7 +38,7 @@ const (
 
 // createRequest is the main core function.
 func createRequest(method string, url string,
-	payload interface{}, onlyFields []string,
+	payload any, onlyFields []string,
 	options ...RequestOptions) (req *http.Request, err error) {
 
 	body, err := convertPayload(payload, onlyFields)
@@ -59,7 +59,7 @@ func createRequest(method string, url string,
 
 // converPayload returns payload casted in []byte.
 // If the payload is a structure, it's encoded to JSON.
-func convertPayload(payload interface{}, onlyFields []string) (body []byte, err error) {
+func convertPayload(payload any, onlyFields []string) (body []byte, err error) {
 	if payload != nil {
 		switch t := payload.(type) {
 		case string:
@@ -86,8 +86,8 @@ func convertPayload(payload interface{}, onlyFields []string) (body []byte, err 
 
 // buildMap returns a map with fields specified in onlyFields (all fields if nil)
 // and without the read_only fields.
-func buildMap(v reflect.Value, onlyFields []string) map[string]interface{} {
-	res := make(map[string]interface{})
+func buildMap(v reflect.Value, onlyFields []string) map[string]any {
+	res := make(map[string]any)
 	if onlyFields != nil {
 		for _, onlyField := range onlyFields {
 			fieldType, exist := v.Type().FieldByName(onlyField)
@@ -104,7 +104,7 @@ func buildMap(v reflect.Value, onlyFields []string) map[string]interface{} {
 }
 
 func addFieldToMap(onlyField bool, fieldType reflect.StructField,
-	fieldValue reflect.Value, res map[string]interface{}) {
+	fieldValue reflect.Value, res map[string]any) {
 	if fieldType.Tag.Get("mailjet") != "read_only" {
 		name, second := parseTag(fieldType.Tag.Get("json"))
 		if name == "" {
@@ -194,7 +194,7 @@ func buildDataURL(baseURL string, info *DataRequest) string {
 
 // readJsonResult decodes the API response, returns Count and Total values
 // and stores the Data in the value pointed to by data.
-func readJSONResult(r io.Reader, data interface{}) (int, int, error) {
+func readJSONResult(r io.Reader, data any) (int, int, error) {
 	var res RequestResult
 	res.Data = data
 

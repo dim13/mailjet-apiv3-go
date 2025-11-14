@@ -16,7 +16,7 @@ type HTTPClientMock struct {
 	apiKeyPrivate   string
 	headers         map[string]string
 	request         *http.Request
-	response        interface{}
+	response        any
 	validCreds      bool
 	fx              *fixtures.Fixtures
 	CallFunc        func() (int, int, error)
@@ -76,7 +76,7 @@ func (c *HTTPClientMock) With(headers map[string]string) HTTPClientInterface {
 }
 
 // Read allow you to bind the response received through the underlying http client
-func (c *HTTPClientMock) Read(response interface{}) HTTPClientInterface {
+func (c *HTTPClientMock) Read(response any) HTTPClientInterface {
 	err := c.fx.Read(response)
 	if err != nil {
 		log.Println(fmt.Errorf("c.fx.Read: %w", err))

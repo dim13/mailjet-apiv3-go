@@ -11,6 +11,6 @@ type HTTPClientInterface interface {
 	Send(req *http.Request) HTTPClientInterface
 	SendMailV31(req *http.Request) (*http.Response, error)
 	With(headers map[string]string) HTTPClientInterface
-	Read(response interface{}) HTTPClientInterface
+	Read(response any) HTTPClientInterface
 	Call() (count int, total int, err error)
 }

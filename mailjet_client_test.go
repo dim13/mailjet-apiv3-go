@@ -99,7 +99,7 @@ func TestCreateListrecipient(t *testing.T) {
 			t.Fatal("Unexpected error:", err)
 		}
 
-		body := make(map[string]interface{})
+		body := make(map[string]any)
 		if err = json.Unmarshal(b, &body); err != nil {
 			t.Fatal("Invalid body:", err)
 		}
@@ -460,10 +460,10 @@ func TestSendMailV31(t *testing.T) {
 	tests := []struct {
 		name           string
 		messages       mailjet.MessagesV31
-		mockResponse   interface{}
+		mockResponse   any
 		mockStatusCode int
 		wantResponse   *mailjet.ResultsV31
-		wantErr        interface{}
+		wantErr        any
 	}{
 		{
 			name:     "sending successful",

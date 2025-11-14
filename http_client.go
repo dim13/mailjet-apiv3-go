@@ -15,7 +15,7 @@ type HTTPClient struct {
 	apiKeyPrivate string
 	headers       map[string]string
 	request       *http.Request
-	response      interface{}
+	response      any
 	mu            sync.RWMutex
 }
 
@@ -79,7 +79,7 @@ func (c *HTTPClient) SendMailV31(req *http.Request) (*http.Response, error) {
 }
 
 // Read binds the response to the underlying http client
-func (c *HTTPClient) Read(response interface{}) HTTPClientInterface {
+func (c *HTTPClient) Read(response any) HTTPClientInterface {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 

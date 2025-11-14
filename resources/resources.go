@@ -263,10 +263,10 @@ type CampaigndraftTest struct {
 
 // CampaigndraftDetailcontent:
 type CampaigndraftDetailcontent struct {
-	TextPart    string      `json:"Text-part,omitempty"`
-	HtmlPart    string      `json:"Html-part,omitempty"`
-	MJMLContent string      `json:",omitempty"`
-	Headers     interface{} `json:",omitempty"`
+	TextPart    string `json:"Text-part,omitempty"`
+	HtmlPart    string `json:"Html-part,omitempty"`
+	MJMLContent string `json:",omitempty"`
+	Headers     any    `json:",omitempty"`
 }
 
 // Campaigngraphstatistics: API Campaign statistics grouped over intervals
@@ -1019,13 +1019,13 @@ type TemplateDetailcontent struct {
 	TextPart    string      `json:"Text-part,omitempty"`
 	HtmlPart    string      `json:"Html-part,omitempty"`
 	MJMLContent MJMLContent `json:",omitempty"`
-	Headers     interface{} `json:",omitempty"`
+	Headers     any         `json:",omitempty"`
 }
 
 // MJMLContent: Structure of Passport template.
 type MJMLContent struct {
 	tagName    string
-	attributes map[string]interface{}
+	attributes map[string]any
 	id         string
 }
 
@@ -1175,7 +1175,7 @@ type MessageTemplate struct {
 
 type KeyValueList []map[string]string
 
-type JSONObject interface{}
+type JSONObject any
 
 type ContactsListAction struct {
 	ListID int64
